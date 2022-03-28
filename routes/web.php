@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardPostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,9 +42,15 @@ Route::get('/posts/{post:slug}', [PostController::class, 'single']);
 
 Route::get('/sign-in', [AuthController::class, 'signinView'])->name('login')->middleware('guest');
 Route::post('/sign-in', [AuthController::class, 'authenticate']);
-Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
+Route::get('/sign-out', [AuthController::class, 'signout'])->middleware('auth');
 
 Route::get('/sign-up', [AuthController::class, 'signupView'])->middleware('guest');
 Route::post('/sign-up', [AuthController::class, 'signupData']);
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+Route::get('/dashboard', function () {
+    return view('dashboard.index', [
+        "title" => "Dashboard"
+    ]);
+})->middleware('auth');
+
+Route::resource('/dashboard/posts', DashboardPostController::class)->middleware('auth');

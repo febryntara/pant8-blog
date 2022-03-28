@@ -8,7 +8,10 @@
     {{-- LINK BOOTSTRAP --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     {{-- LINK BOOTSTRAP --}}
+
     {{-- My Css --}}
     <link rel="stylesheet" href="css/stle.css">
     {{-- My Css --}}
@@ -45,22 +48,25 @@
                                 Welcome, <span class="fw-bold">{{ auth()->user()->name }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
+                                <li><a class="dropdown-item" href="/dashboard"><i
+                                            class="bi bi-columns-gap me-1"></i>Dashboard</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li>
-                                    <form action="/logout" method="get">
+                                    <form action="/sign-out" method="get">
                                         @csrf
-                                        <button class="dropdown-item" type="submit">Logout</button>
+                                        <button class="dropdown-item" type="submit"><i
+                                                class="bi bi-box-arrow-in-left me-1"></i>Sign out</button>
                                     </form>
                                 </li>
                             </ul>
                         </li>
                     @else
                         <li class="nav-item">
-                            <a href="/sign-in"
-                                class="nav-link{{ $where == 'signin' ? ' active fw-bold' : null }}">Sign-in</a>
+                            <a href="/sign-in" class="nav-link{{ $where == 'signin' ? ' active fw-bold' : null }}">
+                                <i class="bi bi-box-arrow-right me-1"></i>Sign-in
+                            </a>
                         </li>
                     @endauth
                 </ul>
