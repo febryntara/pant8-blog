@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,3 +38,12 @@ Route::get('/categories', function () {
 Route::get('/posts', [PostController::class, 'index']);
 
 Route::get('/posts/{post:slug}', [PostController::class, 'single']);
+
+Route::get('/sign-in', [AuthController::class, 'signinView'])->name('login')->middleware('guest');
+Route::post('/sign-in', [AuthController::class, 'authenticate']);
+Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
+
+Route::get('/sign-up', [AuthController::class, 'signupView'])->middleware('guest');
+Route::post('/sign-up', [AuthController::class, 'signupData']);
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
